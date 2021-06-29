@@ -1,22 +1,22 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
+import { data } from '../data/Q&As';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Container from "react-bootstrap/Container";
 import Jumbotron from "react-bootstrap/Jumbotron";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 
+
 class App extends React.Component {
   render() {
     return (
       <Container
         style={{textAlign: "center"}}
-        fluid 
       >
         <Jumbotron>
           <h1>Quiz o Lublinie</h1>
-          <h2>Sprawdź swoją wiedzę na temat Lublina!</h2>
+          <h3>Sprawdź swoją wiedzę na temat Lublina!</h3>
           <p>Możesz najpierw przeczytać <a target="_blank" rel="noreferrer" href="https://pl.wikipedia.org/wiki/Lublin">artykuł o Lublinie na Wikipedii</a>, z którego zaczerpnąłem pytania.</p>
           <p>Albo... od razu przejdź do rozwiązywania quizu poniżej!</p>
           <Button variant="primary">Zacznij quiz!</Button>
@@ -39,7 +39,7 @@ class App extends React.Component {
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <App data={data} />
   </React.StrictMode>,
   document.getElementById('root')
 );
