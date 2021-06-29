@@ -14,6 +14,7 @@ class App extends React.Component {
     return (
       <Container
         style={{textAlign: "center"}}
+        fluid
       >
         <Jumbotron>
           <h1>Quiz o Lublinie</h1>
@@ -23,10 +24,10 @@ class App extends React.Component {
             <a target="_blank" rel="noreferrer" href="https://pl.wikipedia.org/wiki/Lublin"> artykuł o Lublinie na Wikipedii</a>, 
             z którego zaczerpnąłem pytania.
             Albo... od razu przejdź do rozwiązywania quizu poniżej!</p>
-          <Button variant="primary">Zacznij quiz!</Button>
+          <Button variant="outline-primary">Zacznij quiz!</Button>
         </Jumbotron>
         <Form>
-          <Form.Group>
+          <Form.Group controlId="questions">
             <Form.Label>Przykładowe pytanie</Form.Label>
             <Form.Control style={{textAlign: "center"}} as="select" multiple>
               <option>Przykładowa odpowiedź 1</option>
