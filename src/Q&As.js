@@ -1,4 +1,4 @@
-export const data = [
+const data = [
     {
         question: "Jaka rzeka płynie w Lublinie?",
         answers: ["Bystra", "Bystrzyca", "Wisła"],
@@ -60,3 +60,5 @@ export const data = [
         correct: "Pałac Prezydencki",
     }
 ];
+
+export default data;
