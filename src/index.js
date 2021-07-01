@@ -3,23 +3,40 @@ import ReactDOM from 'react-dom';
 import data from './Q&As';
 import './index.css';
 import 'bootstrap/dist/css/bootstrap.min.css';
-import Container from "react-bootstrap/Container";
-import Jumbotron from "react-bootstrap/Jumbotron";
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
+import {Container, Jumbotron, Form, Button, Alert} from "react-bootstrap";
 
 function App(props) {
   const [qNum, setQnum] = useState(0);
   const [answer, setAnswer] = useState("Bystrzyca");
   const [correctAnum, setCorrectAnum] = useState(0);
+  const [answers, setAnswers] = useState(props.data[qNum].answers);
+
   function handleChange(e) {
     console.log(e.target.value);
     let chosenAnswer = e.target.value;
     setAnswer(chosenAnswer);
   }
+
+  /*
+  let randomNum = Math.floor(Math.random()*answers.length);
+    console.log("randomNum = " + randomNum)
+    let randomizedAnswers = [];
+    if (randomNum === 0) {
+      randomizedAnswers.push(answers[0], answers[1], answers[2]);
+    } else if (randomNum === 1) {
+      randomizedAnswers.push(answers[1], answers[2], answers[0]);
+    } else {
+      randomizedAnswers.push(answers[2], answers[0], answers[1]);
+    }
+    setAnswers(randomizedAnswers);
+    console.log(answers);
+    console.log(randomizedAnswers)
+  */
+
   function showQ() {
     
     let num = qNum;
+
     //check answer:
     let correctNum = correctAnum;
     answer === props.data[qNum].correct ? correctNum++ : (correctNum = correctAnum);
@@ -27,7 +44,11 @@ function App(props) {
     console.log(correctAnum);
 
     num++;
-    num <= (props.data.length - 1) ? setQnum(num) : alert("Koniec quizu");
+    num <= (props.data.length - 1) ? setQnum(num) : alert(`Koniec quizu! Twój wynik to ${correctAnum}/${props.data.length}`);
+    console.log("num = " + num);
+    setAnswers(props.data[num].answers);
+    console.log(answers);
+    
     setAnswer("");
   }
 
@@ -48,7 +69,9 @@ function App(props) {
       </Jumbotron>
       <Form>
         <Form.Group controlId={"question" + qNum}>
-          <Form.Label>{`${qNum + 1}. ${props.data[qNum].question}`}</Form.Label>
+          <Form.Label>
+            <h3>{`${qNum + 1}/${props.data.length}. ${props.data[qNum].question}`}</h3>
+          </Form.Label>
           <Form.Control
             style={{textAlign: "center"}}
             as="select"
@@ -56,9 +79,9 @@ function App(props) {
             onChange={handleChange}
             
           >
-            {props.data[qNum].answers.map(option => (
+            {answers.map((option, i) => (
               <option
-                key={option}
+                key={`question${qNum}.option${i}`}
                 value={option}
               >
                 {option}
@@ -68,6 +91,9 @@ function App(props) {
           <Button onClick={showQ}>Kolejne pytanie</Button>
         </Form.Group>
       </Form>
+      <Alert variant="primary">
+        Na razie udzieliłeś/aś {correctAnum} poprawnych odpowiedzi na {qNum}!
+      </Alert>
       <footer>Designed and programmed by Vadim Gierko 2021</footer>
     </Container>
   ); 
