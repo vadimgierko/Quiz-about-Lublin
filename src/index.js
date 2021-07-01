@@ -10,6 +10,7 @@ function App(props) {
   const [answer, setAnswer] = useState("Bystrzyca");
   const [correctAnum, setCorrectAnum] = useState(0);
   const [answers, setAnswers] = useState(props.data[qNum].answers);
+  const [endOfQuiz, setEndOfQuiz] = useState(false);
 
   function handleChange(e) {
     console.log(e.target.value);
@@ -37,18 +38,11 @@ function App(props) {
     
     let num = qNum;
 
-    //check answer:
-    let correctNum = correctAnum;
-    answer === props.data[qNum].correct ? correctNum++ : (correctNum = correctAnum);
-    setCorrectAnum(correctNum);
-    console.log(correctAnum);
+    answer === props.data[qNum].correct ? setCorrectAnum(correctAnum + 1) : setCorrectAnum(correctAnum);;
 
     num++;
-    num <= (props.data.length - 1) ? setQnum(num) : alert(`Koniec quizu! Twój wynik to ${correctAnum}/${props.data.length}`);
-    console.log("num = " + num);
-    setAnswers(props.data[num].answers);
-    console.log(answers);
-    
+    num <= (props.data.length - 1) ? setQnum(num) : setEndOfQuiz(true);
+    num <= (props.data.length - 1) ? setAnswers(props.data[num].answers) : setAnswers(answers);
     setAnswer("");
   }
 
@@ -70,29 +64,28 @@ function App(props) {
       <Form>
         <Form.Group controlId={"question" + qNum}>
           <Form.Label>
-            <h3>{`${qNum + 1}/${props.data.length}. ${props.data[qNum].question}`}</h3>
+            {endOfQuiz ? "" : <h3>{`${qNum + 1}/${props.data.length}. ${props.data[qNum].question}`}</h3>}
           </Form.Label>
           <Form.Control
             style={{textAlign: "center"}}
             as="select"
             multiple
             onChange={handleChange}
-            
           >
-            {answers.map((option, i) => (
+            {endOfQuiz ? null : (answers.map((option, i) => (
               <option
                 key={`question${qNum}.option${i}`}
                 value={option}
               >
                 {option}
               </option>
-            ))}
+            )))}
           </Form.Control>
-          <Button onClick={showQ}>Kolejne pytanie</Button>
+          {endOfQuiz ? null : (<Button onClick={showQ}>Kolejne pytanie</Button>)}
         </Form.Group>
       </Form>
-      <Alert variant="primary">
-        Na razie udzieliłeś/aś {correctAnum} poprawnych odpowiedzi na {qNum}!
+      <Alert variant={endOfQuiz ? "danger" : "primary"}>
+        {endOfQuiz ? `Koniec quizu! Twój wynik to: ${correctAnum}/${props.data.length}!` : `Na razie udzieliłeś/aś ${correctAnum} poprawnych odpowiedzi na ${qNum}!`}
       </Alert>
       <footer>Designed and programmed by Vadim Gierko 2021</footer>
     </Container>
