@@ -61,29 +61,31 @@ function App(props) {
           Albo... od razu przejdź do rozwiązywania quizu poniżej!</p>
         <Button variant="outline-primary">Zacznij quiz!</Button>
       </Jumbotron>
-      <Form>
-        <Form.Group controlId={"question" + qNum}>
-          <Form.Label>
-            {endOfQuiz ? "" : <h3>{`${qNum + 1}/${props.data.length}. ${props.data[qNum].question}`}</h3>}
-          </Form.Label>
-          <Form.Control
-            style={{textAlign: "center"}}
-            as="select"
-            multiple
-            onChange={handleChange}
-          >
-            {endOfQuiz ? null : (answers.map((option, i) => (
-              <option
-                key={`question${qNum}.option${i}`}
-                value={option}
-              >
-                {option}
-              </option>
-            )))}
-          </Form.Control>
-          {endOfQuiz ? null : (<Button onClick={showQ}>Kolejne pytanie</Button>)}
-        </Form.Group>
-      </Form>
+      {endOfQuiz ? null : (
+        <Form>
+          <Form.Group controlId={"question" + qNum}>
+            <Form.Label>
+              <h3>{`${qNum + 1}/${props.data.length}. ${props.data[qNum].question}`}</h3>
+            </Form.Label>
+            <Form.Control
+              style={{textAlign: "center"}}
+              as="select"
+              multiple
+              onChange={handleChange}
+            >
+              {answers.map((option, i) => (
+                <option
+                  key={`question${qNum}.option${i}`}
+                  value={option}
+                >
+                  {option}
+                </option>
+              ))}
+            </Form.Control>
+            <Button onClick={showQ}>Kolejne pytanie</Button>
+          </Form.Group>
+        </Form>
+      )}
       <Alert variant={endOfQuiz ? "danger" : "primary"}>
         {endOfQuiz ? `Koniec quizu! Twój wynik to: ${correctAnum}/${props.data.length}!` : `Na razie udzieliłeś/aś ${correctAnum} poprawnych odpowiedzi na ${qNum}!`}
       </Alert>
