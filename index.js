@@ -128,7 +128,7 @@ function App(props) {
               className="form-control"
               style={{textAlign: "center", cursor: "pointer"}}
               id={`question${qNum}`}
-              multiple
+              
               onChange={handleChange}
             >
               {answers.map((option, i) => (
