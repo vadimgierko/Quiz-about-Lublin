@@ -63,7 +63,7 @@ const data = [
 
 function App(props) {
   const [qNum, setQnum] = React.useState(0);
-  const [answer, setAnswer] = React.useState("Bystrzyca");
+  const [answer, setAnswer] = React.useState("");
   const [correctAnum, setCorrectAnum] = React.useState(0);
   const [answers, setAnswers] = React.useState(props.data[qNum].answers);
   const [endOfQuiz, setEndOfQuiz] = React.useState(false);
