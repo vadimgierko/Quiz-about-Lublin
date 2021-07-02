@@ -111,9 +111,8 @@ function App(props) {
           Możesz najpierw przeczytać
           <a target="_blank" rel="noreferrer" href="https://pl.wikipedia.org/wiki/Lublin"> artykuł o Lublinie na Wikipedii</a>, 
           z którego zaczerpnąłem pytania.
-          Albo... od razu przejdź do rozwiązywania quizu poniżej!</p>
-        <button
-          className="btn btn-outline-primary">Zacznij quiz!</button>
+          Albo... od razu przejdź do rozwiązywania quizu poniżej!
+        </p>
       </div>
       {endOfQuiz ? null : (
         <form>
@@ -131,7 +130,7 @@ function App(props) {
               
               onChange={handleChange}
             >
-              <option>Wybierz odpowiedź</option>
+              <option>Wybierz odpowiedź:</option>
               {answers.map((option, i) => (
                 <option
                   key={`question${qNum}.option${i}`}
@@ -142,7 +141,7 @@ function App(props) {
               ))}
             </select>
             <br></br>
-            <button className="btn btn-primary" onClick={showQ}>Kolejne pytanie</button>
+            <button className="btn btn-outline-primary" onClick={showQ}>Kolejne pytanie</button>
           </div>
         </form>
       )}
